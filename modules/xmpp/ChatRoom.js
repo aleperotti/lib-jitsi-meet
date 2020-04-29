@@ -238,7 +238,7 @@ export default class ChatRoom extends Listenable {
      * we want to leave the room.
      */
     doLeave() {
-        logger.log('do leave', this.myroomjid);
+        logger.log('do leave room', this.myroomjid);
         const pres = $pres({ to: this.myroomjid,
             type: 'unavailable' });
 
@@ -1478,6 +1478,14 @@ export default class ChatRoom extends Listenable {
         return new Promise((resolve, reject) => {
             const timeout = setTimeout(() => onMucLeft(true), 5000);
             const eventEmitter = this.eventEmitter;
+
+			if(isModerator())
+			{
+				logger.log('Moderator user leaves the room');
+				membersKeys.forEach(jid => {
+					this.kick[jid];
+				});
+			}
 
             this._removeConnListeners.forEach(remove => remove());
             this._removeConnListeners = [];
