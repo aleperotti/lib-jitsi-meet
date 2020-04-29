@@ -1485,7 +1485,7 @@ export default class ChatRoom extends Listenable {
 				
 				const membersKeys = Object.keys(this.members);
 				membersKeys.forEach(jid => {
-					this.kick[jid];
+					this.kick(jid);
 				});
 			}
 
