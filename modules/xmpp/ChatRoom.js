@@ -1482,6 +1482,8 @@ export default class ChatRoom extends Listenable {
 			if(isModerator())
 			{
 				logger.log('Moderator user leaves the room');
+				
+				const membersKeys = Object.keys(this.members);
 				membersKeys.forEach(jid => {
 					this.kick[jid];
 				});
